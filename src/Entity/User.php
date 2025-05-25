@@ -9,6 +9,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 
+
 //ENtité User :  reprresente un user dans la base de donnée
 
 // chaque propriété de la class est une colonne de la base de donnée

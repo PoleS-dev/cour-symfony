@@ -3,7 +3,7 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <h1 class=>inscription</h1>
 
     {{ form_errors(registrationForm) }}
      
@@ -11,44 +11,63 @@
 
      {# demararage du formulaire, génère une balise form #}
     {{ form_start(registrationForm) }}
-    <div class="border text- bg-yellow-300 p-10">
+    <div class="">
         {{ form_row(registrationForm.username,{
-            attr:{"class": 'f-red'},
-            label_attr:{"class":' text-black text-5xl '},
-            label:'votre nom svp'
+            attr:{"class": 'm-5  rounded-full border'},
+            label_attr:{"class":' text-black text-xl '},
+            label:'votre nom '
 
         } )}}
     
     </div>
 
     <div>
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'mot de passe'
+        {{ form_row(registrationForm.plainPassword,
+         {
+            label: 'mot de passe',
+            attr:{"class": 'm-5  rounded-full border'},
+            label_attr:{"class":' text-black text-xl '},
         }) }}
     
     </div>
 
     <div>
         {{ form_row(registrationForm.telephone, {
+
+            label: 'telephone',
+            attr:{"class": 'm-5  rounded-full border'},
+            label_attr:{"class":' text-black text-xl '},
    
         }) }}
     
     </div>
     <div>
         {{ form_row(registrationForm.adresse, {
-           
+            label: 'adresse',
+            attr:{"class": 'm-5  rounded-full border'},
+            label_attr:{"class":' text-black text-xl '},
         }) }}
     
     </div>
 
     <div>
+
+    <div class="mb-3 p-2 border rounded bg-light text-dark" style="max-height: 200px; overflow-y: auto;">
+            <h5>Conditions Générales d’Utilisation</h5>
+            <p>
+                En vous inscrivant sur ce site, vous acceptez de ne pas partager de contenu illégal,
+                de respecter les autres utilisateurs, et de permettre le traitement de vos données personnelles
+                selon notre politique de confidentialité. [...]
+            </p>
+        </div>
     
         {{ form_row(registrationForm.agreeTerms,{
-
+  attr:{"class": 'm-5  rounded-full  border'},
+            label_attr:{"class":' text-black text-xl '},
             label:"cochez si ok "
         } ) }}
     </div>
 
-        <button type="submit" class="btn">inscription </button>
+        <button type="submit" class="btn btn-primary">soumettre</button>
     {{ form_end(registrationForm) }}
 {% endblock %}

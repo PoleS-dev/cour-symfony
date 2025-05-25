@@ -3,9 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 body {
-    background-color: rgb(81, 79, 77);
-    color: white;
+ 
 }
+
+
 
 
 .f-red {

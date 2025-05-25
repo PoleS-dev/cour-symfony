@@ -21,6 +21,12 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href=" {{ path('home') }}  ">home</a>
         </li>
+
+         {% if  is_granted('ROLE_USER') %}
+        <li class="nav-item">
+           <a class="nav-link" href=" {{ path('profile') }}  ">profil</a> 
+        </li>
+         {% endif %}
         <li class="nav-item">
           <a class="nav-link" href=" {{ path('apropos') }}  ">a propos</a>
         </li>

@@ -17,10 +17,14 @@ final class AdminCategoryController extends AbstractController
     #[Route(name: 'app_admin_category_index', methods: ['GET'])]
     public function index(CategoryRepository $categoryRepository): Response
     {
+
+        
         return $this->render('admin_category/index.html.twig', [
-            'categories' => $categoryRepository->findAll(),
+            'coucou' => $categoryRepository->findAll(),
+            
         ]);
     }
+
 
     #[Route('/new', name: 'app_admin_category_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
