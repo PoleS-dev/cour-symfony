@@ -13,15 +13,15 @@ final class HomeController extends AbstractController
     public function index(Request $request): Response
     {
 
-          // Accéder à la session
-    $session = $request->getSession();
-
-
-
         return $this->render('home/index.html.twig', [
-           'session'=>$session
+           
         ]);
     }
+ 
+
+
+
+
     #[Route('/apropos', name: 'apropos')]
     public function apropos(): Response
     {
