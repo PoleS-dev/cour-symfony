@@ -19,7 +19,7 @@ final class AdminProduitController extends AbstractController
     #[Route(name: 'app_admin_produit_index', methods: ['GET'])]
     public function index(ProduitRepository $produitRepository): Response
     {
-         // outil debug comment  
+         // outil debug comme var_dumps()
         dump($produitRepository->findAll());
          dump(get_class_methods($produitRepository));
 
@@ -32,18 +32,18 @@ final class AdminProduitController extends AbstractController
     #[Route('/new', name: 'app_admin_produit_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-
+         // dump outil debug comme var_dumps()
         dump($request);
         dump(get_class_methods($request));
         $session=$request->getSession( );
 
         dump($session->all());
 
-        dump($request->getUserInfo());
 
 
 
-        $produit = new Produit();
+
+        $produit = new Produit();// creation objet $produit de la class Produit vide nous allons le remplir par la suite
         $form = $this->createForm(ProduitForm::class, $produit);
         $form->handleRequest($request);
 
@@ -55,17 +55,24 @@ final class AdminProduitController extends AbstractController
             $imageFile=$form->get('img')->getData();
 
             if($imageFile){
-
+                // nous creons un variable $newFilename qui contiendra le nom du fichier de l'image
+                //uniqid() → fonction PHP qui génère une chaîne unique (ex : 656b3ef2c6a9b)
+                // $imageFile->guessExtension() → devine automatiquement l’extension (jpg, png, etc.)
+                // Le point (.) sert à concaténer les deux chaînes pour former un nom de fichier complet
                $newFileName=uniqid().'.'.$imageFile->guessExtension();
 
    
                try{
+                    // $this->getParameter() → méthode Symfony pour lire un paramètre défini dans services.yaml
+                    // Ici, on lit la valeur de "images_produit" (chemin vers le dossier public/images)
 
+                    // move() → méthode de l’objet UploadedFile
+                    // Elle déplace le fichier depuis le dossier temporaire vers le bon dossier sur le serveur
                 $imageFile->move( // on deplace le fichier dans ....
                     $this->getParameter('images_produit'), // dessier de destianation issu de service.yaml
                     $newFileName); // nom du fichier
 
-                    // on met à jour le nom de l'image dans le produit
+                    // on met à jour le nom de l'image dans le produit avec le setter setImg de l'entité Produit
                     $produit->setImg($newFileName);
 
                }catch(FileException $e)  {
@@ -77,9 +84,9 @@ final class AdminProduitController extends AbstractController
 
             }
 
-
-            $entityManager->persist($produit);
-            $entityManager->flush();
+        // l'objet $entityManager est un outil de Doctrine qui permet de communiquer avec la base de donnée
+            $entityManager->persist($produit); // on persiste le produit dans la base
+            $entityManager->flush();// on l'enregistre  dans la base de donnée 
 
             return $this->redirectToRoute('app_admin_produit_index', [], Response::HTTP_SEE_OTHER);
         }
