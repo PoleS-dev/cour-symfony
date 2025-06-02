@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Produit;
 use App\Repository\ProduitRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Dom\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,13 +15,28 @@ final class HomeController extends AbstractController
 {
     #[Route('/', name: 'home')]
     public function index(Request $request,ProduitRepository $repo ): Response
-    {
-
-        dump( get_class_methods($repo) ); 
+  { 
 
         $produits=$repo->findAll();
 
-        dump($produits);
+    
+        $oneProduit=$repo->find(1);
+
+        dump($oneProduit);
+
+        $selectedProduit=null;
+
+        if($request->isMethod('POST')){// si form est POST 
+
+            $formType=$request->get('form');
+
+            if($formType==='select_produit'){// le name form dans le formulaire a une valeur de select_produit
+
+                $idProduit=$request->get('produit'); // recupere l'id du produit
+
+                $selectedProduit=$repo->find($idProduit);
+            }
+        }
 
 
     
@@ -27,7 +44,8 @@ final class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
 
             "produits"=>$produits,
-
+            "oneProduit"=>$oneProduit,
+            "selectedProduit"=>$selectedProduit
            
         ]);
     }
