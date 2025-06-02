@@ -23,6 +23,8 @@ final class AdminProduitController extends AbstractController
         dump($produitRepository->findAll());
          dump(get_class_methods($produitRepository));
 
+         
+
         return $this->render('admin_produit/index.html.twig', [
             'produits' => $produitRepository->findAll(),
             'salut'=> "bonjour"
@@ -87,7 +89,7 @@ final class AdminProduitController extends AbstractController
         // l'objet $entityManager est un outil de Doctrine qui permet de communiquer avec la base de donnée
             $entityManager->persist($produit); // on persiste le produit dans la base
             $entityManager->flush();// on l'enregistre  dans la base de donnée 
-
+  $this->addFlash('success', "Le produit a bien été ajouté");
             return $this->redirectToRoute('app_admin_produit_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -135,14 +137,9 @@ final class AdminProduitController extends AbstractController
             }
 
 
-
-
-
-
-
-
-
             $entityManager->flush();
+
+            $this->addFlash('success', "Le produit a bien ete modifie");
 
             return $this->redirectToRoute('app_admin_produit_index', [], Response::HTTP_SEE_OTHER);
         }

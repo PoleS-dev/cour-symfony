@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Produit;
+use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,11 +12,36 @@ use Symfony\Component\Routing\Attribute\Route;
 final class HomeController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function index(Request $request): Response
+    public function index(Request $request,ProduitRepository $repo ): Response
     {
 
+        dump( get_class_methods($repo) ); 
+
+        $produits=$repo->findAll();
+
+        dump($produits);
+
+
+    
+
         return $this->render('home/index.html.twig', [
+
+            "coucou"=>$produits,
+
            
+        ]);
+    }
+
+    #[Route('/produit/{id}', name: 'showProduit')]
+    public function showPoduit(Produit $produit):Response
+    {
+
+
+        return $this->render('showProduit/index.html.twig',[
+           
+
+            "produit"=>$produit
+
         ]);
     }
  

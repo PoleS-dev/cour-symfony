@@ -54,6 +54,49 @@
 	{% endif %}
 
 
+
+
+{% for index in coucou %}
+
+<div class=" border p-5 bg-amber-200" >
+<h3 class="text-3xl" >  titre : {{ index.nom }}  </h3>
+
+<p> description : {{ index.description }}  </p>
+
+<a href="{{ path('showProduit', {'id': index.id}) }}">
+
+<img class=" w-56 " src=" {{ asset('images/produit_image/' ~ index.img  ) }} "  alt="">
+
+</a>
+
+
+
+</div>
+
+
+	
+{% endfor %}
+
+ {# {% for produit in produits %}
+
+<div class="border p-5 text-center">
+
+
+<img src=" {{ asset('images/produit_images' ) }} " alt="">
+
+
+
+
+</div> #}
+
+
+	
+{# {% endfor %}  #}
+
+
+
+
+
 {% endblock %}
 
 
