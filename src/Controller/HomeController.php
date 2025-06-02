@@ -26,24 +26,24 @@ final class HomeController extends AbstractController
 
         return $this->render('home/index.html.twig', [
 
-            "coucou"=>$produits,
+            "produits"=>$produits,
 
            
         ]);
     }
+#[Route('/produit/{id}', name: 'showProduitId',methods: ['GET'])]
+ public function showProduitId(Produit $produit) :Response
+ {
 
-    #[Route('/produit/{id}', name: 'showProduit')]
-    public function showPoduit(Produit $produit):Response
-    {
+
+    return $this->render('showProduitId/index.html.twig',[
+
+        "produit"=>$produit
+
+    ]);
 
 
-        return $this->render('showProduit/index.html.twig',[
-           
-
-            "produit"=>$produit
-
-        ]);
-    }
+ }
  
 
 

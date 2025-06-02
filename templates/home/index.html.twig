@@ -26,14 +26,12 @@
 {% endblock %}
 
 
-
-
 {% block body %}
-{% if app.user and is_granted('ROLE_ADMIN') %}
+	{% if app.user and is_granted('ROLE_ADMIN') %}
 
-<P>TU ES ADMIN </P>
-{% endif %}
-
+		<P>TU ES ADMIN
+		</P>
+	{% endif %}
 
 
 	{% if app.user %}
@@ -45,7 +43,7 @@
 		</h2>
 
 		{# <p>{{ dump(session.get('security_main')) }} </p>
-		<p>{{ dump(session.all) }} </p> #}
+				<p>{{ dump(session.all) }} </p> #}
 		{{ app.request.query.get('page') }}
 
 		<p>{{ app.request.query.get('page') }}
@@ -54,47 +52,45 @@
 	{% endif %}
 
 
+	{% for index in produits %}
+
+		<div class=" border p-5 bg-amber-200">
+			<h3 class="text-3xl">
+				titre :
+				{{ index.nom }}
+			</h3>
+
+			<p>
+				description :
+				{{ index.description }}
+			</p>
+
+			<a href="{{ path('showProduitId', {'id': index.id}) }}">
+				<img class=" w-56 " src=" {{ asset('images/produit_image/' ~ index.img  ) }} " alt="">
 
 
-{% for index in coucou %}
-
-<div class=" border p-5 bg-amber-200" >
-<h3 class="text-3xl" >  titre : {{ index.nom }}  </h3>
-
-<p> description : {{ index.description }}  </p>
-
-<a href="{{ path('showProduit', {'id': index.id}) }}">
-
-<img class=" w-56 " src=" {{ asset('images/produit_image/' ~ index.img  ) }} "  alt="">
-
-</a>
+			</a>
 
 
+		</div>
 
-</div>
 
+	{% endfor %}
 
+	{# {% for produit in produits %}
 	
-{% endfor %}
-
- {# {% for produit in produits %}
-
-<div class="border p-5 text-center">
-
-
-<img src=" {{ asset('images/produit_images' ) }} " alt="">
-
-
-
-
-</div> #}
-
-
+	<div class="border p-5 text-center">
 	
-{# {% endfor %}  #}
+	
+	<img src=" {{ asset('images/produit_images' ) }} " alt="">
+	
+	
+	
+	
+	</div> #}
 
 
-
+	{# {% endfor %}  #}
 
 
 {% endblock %}
