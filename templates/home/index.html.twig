@@ -44,7 +44,7 @@
 		</h2>
 
 		{# <p>{{ dump(session.get('security_main')) }} </p>
-								<p>{{ dump(session.all) }} </p> #}
+										<p>{{ dump(session.all) }} </p> #}
 		{{ app.request.query.get('page') }}
 
 		<p>{{ app.request.query.get('page') }}
@@ -72,20 +72,20 @@
 
 
 	<div class="border m-auto text-center flex flex-col gap-20">
-	<h3 class="text-2xl">Exemple de form pour la méthode find()</h3>
+		<h3 class="text-2xl">Exemple de form pour la méthode find()</h3>
 
-	<form action="{{ path('home') }}" method="POST" data-turbo="false">
-		<input type="hidden" name="form" value="select_produit">
-		<select name="produit" id="produit">
-			{% if produits %}
-				{% for produit in produits %}
-					<option value="{{ produit.id }}">{{ produit.nom }}</option>
-				{% endfor %}
-			{% endif %}
-		</select>
-		<button class="btn btn-primary" type="submit">Rechercher</button>
-	</form>
-	
+		<form action="{{ path('home') }}" method="POST" data-turbo="false">
+			<input type="hidden" name="form" value="select_produit">
+			<select name="produit" id="produit">
+				{% if produits %}
+					{% for produit in produits %}
+						<option value="{{ produit.id }}">{{ produit.nom }}</option>
+					{% endfor %}
+				{% endif %}
+			</select>
+			<button class="btn btn-primary" type="submit">Rechercher</button>
+		</form>
+
 		{% if selectedProduit  %}
 			<div class="card">
 				<h2>Produit sélectionné :</h2>
@@ -101,46 +101,88 @@
 						{{ selectedProduit.prix }}
 						€</li>
 					{# <li>
-						<strong>Stock :</strong>
-						{{ selectedProduit.stock }}</li>
-					<li> #}
-						<strong>Catégorie :</strong>
-						{{ selectedProduit.category.name }}</li>
-				</ul>
+											<strong>Stock :</strong>
+											{{ selectedProduit.stock }}</li>
+										<li> #}
+					<strong>Catégorie :</strong>
+					{{ selectedProduit.category.name }}</li>
+			</ul>
 
-				<div>
-					<img src="{{ asset('images/' ~ selectedProduit.img) }}" alt="{{ selectedProduit.nom }}" style="width: 200px;">
-				</div>
+			<div>
+				<img src="{{ asset('images/' ~ selectedProduit.img) }}" alt="{{ selectedProduit.nom }}" style="width: 200px;">
 			</div>
-
-		{% endif %}
-
-
-
-	{% for index in produits %}
-
-		<div class=" border p-5 bg-amber-200">
-			<h3 class="text-3xl">
-				titre :
-				{{ index.nom }}
-			</h3>
-
-			<p>
-				description :
-				{{ index.description }}
-			</p>
-
-			<a href="{{ path('showProduitId', {'id': index.id}) }}">
-				<img class=" w-56 " src=" {{ asset('images/produit_image/' ~ index.img  ) }} " alt="">
-
-
-			</a>
-
-
 		</div>
 
+	{% endif %}
 
-	{% endfor %}
+
+	<div class="flex flex-wrap gap-5 w-full justify-center items-center">
+
+
+		{% for index in produits %}
+
+			<div class="  border p-5 bg-amber-200 w-60 ">
+				<h3 class="text-3xl">
+					titre :
+					{{ index.nom }}
+				</h3>
+
+				<p>
+					description :
+					{{ index.description }}
+				</p>
+
+				<a class="text-center m-auto" href="{{ path('showProduitId', {'id': index.id}) }}">
+					<img class=" w-56 " src=" {{ asset('images/produit_image/' ~ index.img  ) }} " alt="">
+
+
+				</a>
+
+
+				{% if index.stock < 3 and index.stock >0 %}
+					<p>
+						<strong class="text-red-500">
+							achetez vite bientôt en rupture de stock !!!</strong>
+						stock :
+						{{ index.stock }}
+					</p>
+				{% elseif index.stock > 3 %}
+					<p>
+						<strong>
+							stock :
+						</strong>
+						{{ index.stock }}
+					</p>
+				{% else %}
+					<p>
+						<strong class=" text-red-500 ">
+							victime de son succès
+						</strong>
+						stock : 0
+					</p>
+				{% endif %}
+
+				<form action=" {{ path('panier_ajouter', { id : index.id }  ) }} "method="GET"> 
+				<label for=""  > Quantité : </label>
+				<input type="number"
+				       name="quantite"
+				       id=" quantite_{{index.id}}"
+				       value="0" 
+					   min="1"
+					   max="{{ index.stock }}"
+					   class="w-16 border p-1"
+					   >
+
+					   <button type=submit  class="btn btn-success" >
+					   Ajouter au panier
+					   </button>
+				  </form>
+
+			</div>
+		{% endfor %}
+
+
+	</div>
 {% endblock %}
 {% block metaDescription %}
 

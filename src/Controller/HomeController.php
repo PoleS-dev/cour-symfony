@@ -17,6 +17,12 @@ final class HomeController extends AbstractController
     public function index(Request $request,ProduitRepository $repo ): Response
   { 
 
+
+  
+
+
+    $session = $request->getSession(); 
+          dump($session->all()); 
         $produits=$repo->findAll();
 
     
@@ -26,17 +32,27 @@ final class HomeController extends AbstractController
 
         $selectedProduit=null;
 
-        if($request->isMethod('POST')){// si form est POST 
+      if ($request->isMethod('POST')) { // Si le formulaire est en méthode POST
 
-            $formType=$request->get('form');
+    // dump tout le POST pour voir ce qui est envoyé
+    dump($request->request);
+    dump($request->request->all()); 
 
-            if($formType==='select_produit'){// le name form dans le formulaire a une valeur de select_produit
 
-                $idProduit=$request->get('produit'); // recupere l'id du produit
+    // On récupère la valeur d'un champ "form" dans les données POST
+    $formType = $request->request->get('form'); // mieux que ->get('form') tout court pour POST
 
-                $selectedProduit=$repo->find($idProduit);
-            }
-        }
+    if ($formType === 'select_produit') { // Si l'utilisateur a soumis le formulaire avec ce type
+        // Récupère l'id du produit dans le POST
+        $idProduit = $request->request->get('produit');
+
+        // Cherche le produit en base de données par son ID
+        $selectedProduit = $repo->find($idProduit);
+
+        dump($selectedProduit); // On peut aussi vérifier l'objet récupéré
+    }
+}
+
 
 
     

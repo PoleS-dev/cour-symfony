@@ -4,6 +4,8 @@ namespace App\Entity;
 
 // on importe la class repository associée à notre entité Produit
 use App\Repository\ProduitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 // on importe les annotations Doctrine
 use Doctrine\ORM\Mapping as ORM;
@@ -32,6 +34,20 @@ class Produit
 
     #[ORM\Column]
     private ?float $prix = null;
+
+    /**
+     * @var Collection<int, Panier>
+     */
+    #[ORM\OneToMany(targetEntity: Panier::class, mappedBy: 'produit')]
+    private Collection $paniers;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $stock = null;
+
+    public function __construct()
+    {
+        $this->paniers = new ArrayCollection();
+    }
 
     // getter et setter
 
@@ -96,6 +112,48 @@ class Produit
     public function setPrix(float $prix): static
     {
         $this->prix = $prix;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Panier>
+     */
+    public function getPaniers(): Collection
+    {
+        return $this->paniers;
+    }
+
+    public function addPanier(Panier $panier): static
+    {
+        if (!$this->paniers->contains($panier)) {
+            $this->paniers->add($panier);
+            $panier->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removePanier(Panier $panier): static
+    {
+        if ($this->paniers->removeElement($panier)) {
+            // set the owning side to null (unless already changed)
+            if ($panier->getProduit() === $this) {
+                $panier->setProduit(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getStock(): ?int
+    {
+        return $this->stock;
+    }
+
+    public function setStock(?int $stock): static
+    {
+        $this->stock = $stock;
 
         return $this;
     }

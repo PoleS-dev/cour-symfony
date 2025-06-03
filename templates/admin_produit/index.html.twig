@@ -15,6 +15,8 @@
                 <th>Description</th>
                 <th>Img</th>
                 <th>Prix</th>
+                <th>stock</th>
+
                 <th>actions</th>
             </tr>
         </thead>
@@ -26,6 +28,7 @@
                 <td>{{ produit.description }}</td>
                 <td>{{ produit.img }}</td>
                 <td>{{ produit.prix }}</td>
+                <td>{{ produit.stock }}</td>
                 <td>
                     <a href="{{ path('app_admin_produit_show', {'id': produit.id}) }}">show</a>
                     <a href="{{ path('app_admin_produit_edit', {'id': produit.id}) }}">edit</a>

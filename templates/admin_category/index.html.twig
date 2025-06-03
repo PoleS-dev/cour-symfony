@@ -10,6 +10,7 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>actions</th>
+               
             </tr>
         </thead>
         <tbody>
@@ -21,6 +22,7 @@
                     <a href="{{ path('app_admin_category_show', {'id': category.id}) }}">show</a>
                     <a href="{{ path('app_admin_category_edit', {'id': category.id}) }}">edit</a>
                 </td>
+
             </tr>
         {% else %}
             <tr>
