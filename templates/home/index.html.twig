@@ -52,24 +52,10 @@
 
 	{% endif %}
 
-
-	<div>
-		<h3 class="text-3xl">
-			fonction find()
-		</h3>
-
-		<div>
-
-			<p>
-				nom du produit :
-				{{ oneProduit.nom}}
-			</p>
-
-		</div>
-
-
-	</div>
-
+<div class=" w-full p-5 flex justify-center items-center ">  
+<vue-component is="Hello" :name="' intégtation de vueJs dans tailwind 🚀'"></vue-component>
+ </div>
+ddd
 
 	<div class="border m-auto text-center flex flex-col gap-20">
 		<h3 class="text-2xl">Exemple de form pour la méthode find()</h3>
@@ -139,7 +125,7 @@
 				</a>
 
 
-				{% if index.stock < 3 and index.stock >0 %}
+				{% if index.stock < 3 and index.stock > 0 %}
 					<p>
 						<strong class="text-red-500">
 							achetez vite bientôt en rupture de stock !!!</strong>
@@ -153,7 +139,7 @@
 						</strong>
 						{{ index.stock }}
 					</p>
-				{% else %}
+				{% elseif index.stock  is same as 0 %}
 					<p>
 						<strong class=" text-red-500 ">
 							victime de son succès
@@ -168,7 +154,7 @@
 				       name="quantite"
 				       id=" quantite_{{index.id}}"
 				       value="0" 
-					   min="1"
+					   min="0"
 					   max="{{ index.stock }}"
 					   class="w-16 border p-1"
 					   >

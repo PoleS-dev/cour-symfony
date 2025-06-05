@@ -1,3 +1,4 @@
+import { registerVueControllerComponents } from '@symfony/ux-vue';
 import './bootstrap.js';
 import './script/home.js';
 /*
@@ -9,3 +10,8 @@ import './script/home.js';
 import './styles/app.css';
 import './styles/home.css';
 
+
+// 👇 Importmap via AssetMapper oblige à importer explicitement
+registerVueControllerComponents(
+    require.context('./vue', true, /\.vue$/)
+);

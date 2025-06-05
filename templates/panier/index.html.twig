@@ -1,8 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PanierController!{% endblock %}
+{% block title %}Panier{% endblock %}
 
 {% block body %}
 <h1 class=" text-3xl " > Panier</h1>
+
+{% if paniers is empty %}
+
+   <p> Votre panier est vide</p>
+
+{% endif %}
+<div class="flex justify-center items-center gap-10 flex-col">
+{% for panier in paniers %}
+
+<div class=" border p-5  w-56 m-auto bg-green-200 rounded-xl" >
+<p>
+{{ panier.produit.nom }}
+</p>
+<p> {{panier.quantity}} x {{ panier.produit.prix }} = {{ panier.quantity * panier.produit.prix }} $ </p>
+
+
+<div>
+<form action="{{ path('panier_retirer', {id: panier.id}) }}" method="post" class="d-inline">
+<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Supprimer ce produit du panier ?')">
+      retirer
+</button>
+</form>
+
+  <form action="">
+
+  
+  
+  <button type="submit" > modifier </button>
+  
+  
+  </form>
+
+
+</div>
+
+
+</div>
+    
+{% endfor %}
+
+
+<div>
+
+<p> total : {{ total }} $ </p>
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
 
 {% endblock %}

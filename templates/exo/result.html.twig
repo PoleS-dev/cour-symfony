@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+
+
+<h1>Résultats de recherche pour : "{{ searchQuery }}"</h1>
+
+{% if produits is empty %}
+    <p>Aucun produit trouvé.</p>
+{% else %}
+    <ul>
+    {% for produit in produits %}
+        <li>{{ produit.nom }} - {{ produit.prix }} €</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+
+
+{% endblock %}

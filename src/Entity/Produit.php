@@ -6,6 +6,16 @@ namespace App\Entity;
 use App\Repository\ProduitRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
+// assert
+// NotBlank	Ne            pas laisser vide
+// Positive	              Nombre > 0
+// PositiveOrZero	      Nombre ≥ 0
+// Length(min=5)	      Longueur minimum d'un texte
+// Email	               Vérifier qu’une string est une adresse email valide
+// Range(min=0, max=100)	Limite numérique (par ex. 0 ≤ âge ≤ 100)
+// UniqueEntity (sur l'entité)	Unicité en base (par ex. un email unique)
+
 
 // on importe les annotations Doctrine
 use Doctrine\ORM\Mapping as ORM;
@@ -33,6 +43,7 @@ class Produit
     private ?string $img = null;
 
     #[ORM\Column]
+  #[Assert\PositiveOrZero(message: "Le prix ne peut pas être négatif.")]
     private ?float $prix = null;
 
     /**
@@ -42,6 +53,7 @@ class Produit
     private Collection $paniers;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\PositiveOrZero(message: "Le stock ne peut pas être négatif.")]
     private ?int $stock = null;
 
     public function __construct()

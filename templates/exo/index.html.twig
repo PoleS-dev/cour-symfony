@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ExoController!{% endblock %}
+
+{% block body %}
+
+
+<form method="get" action="{{ path('result') }}">
+    <input type="text" name="query" placeholder="Rechercher un produit">
+    <button type="submit">Rechercher</button>
+</form>
+
+
+{% endblock %}

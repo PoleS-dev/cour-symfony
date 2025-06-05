@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+
+
+{% block body %}
+
+
+<form method="get" action="{{ path('result2') }}">
+    <input type="text" name="query" placeholder="Rechercher un produit">
+    <button type="submit">Rechercher</button>
+</form>
+
+
+{% endblock %}
+
